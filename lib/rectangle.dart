@@ -20,7 +20,7 @@ class RectangleState extends State<Rectangle> {
     _length = int.tryParse(_lengthCtrl.text) ?? 0;
 
     setState(() {
-      _area = _width * _length ;
+      _area = _width * _length;
     });
   }
 
@@ -31,35 +31,59 @@ class RectangleState extends State<Rectangle> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("พื้นที่สีเหลี่ยม"), centerTitle: true),
-      body: Column(
-        children: [
-          SizedBox(height: 20),
-          Text(
-            "กว้าง $_width ม .ยาว $_length ม.พื้นที่คือ $_area ตร.ม",
-            style: TextStyle(fontSize: 22),
+      appBar: AppBar(
+        title: const Text("คำนวณพื้นที่สี่เหลี่ยม"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
-          SizedBox(height: 30),
-          TextField(
-            controller: _widthCtrl,
-            keyboardType: TextInputType.number,
-            decoration: _textFieldStyle.copyWith(
-              label: Text("คำนวณความกว้าง"),
-              hint: Text("กรอกความกว้าง"),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "พื้นที่ = $_area ตร.ม",
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                TextField(
+                  controller: _widthCtrl,
+                  keyboardType: TextInputType.number,
+                  decoration: _textFieldStyle.copyWith(
+                    labelText: "ความกว้าง (ม.)",
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                TextField(
+                  controller: _lengthCtrl,
+                  keyboardType: TextInputType.number,
+                  decoration: _textFieldStyle.copyWith(
+                    labelText: "ความยาว (ม.)",
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _CalReg,
+                    child: const Text("คำนวณ"),
+                  ),
+                ),
+              ],
             ),
           ),
-          SizedBox(height: 20),
-          TextField(
-            controller: _lengthCtrl,
-            keyboardType: TextInputType.number,
-            decoration: _textFieldStyle.copyWith(
-              label: Text("คำนวณความกว้าง"),
-              hint: Text("กรอกความกว้าง"),
-            ),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(onPressed: () => {_CalReg()}, child: Text("คำนวณ")),
-        ],
+        ),
       ),
     );
   }
