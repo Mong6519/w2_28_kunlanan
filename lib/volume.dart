@@ -8,59 +8,83 @@ class Volume extends StatefulWidget {
 }
 
 class VolumeState extends State<Volume> {
-  double _area = 3.14*3.14 ;
-  int _length = 0;
-  double _area2 = 0;
+  double _radius = 0;
+  double _height = 0;
+  double _volume = 0;
 
-  TextEditingController _areaCtrl = TextEditingController();
-  TextEditingController _lengthCtrl = TextEditingController();
+  final TextEditingController _radiusCtrl = TextEditingController();
+  final TextEditingController _heightCtrl = TextEditingController();
 
-  void _CalReg() {
-    _area = double.tryParse(_areaCtrl.text) ?? 0;
-    _length = int.tryParse(_lengthCtrl.text) ?? 0;
-
+  void _calVolume() {
     setState(() {
-      _area2 = _area * _length ;
+      _radius = double.tryParse(_radiusCtrl.text) ?? 0;
+      _height = double.tryParse(_heightCtrl.text) ?? 0;
+      _volume = 3.14 * _radius * _radius * _height;
     });
   }
 
-  final InputDecoration _textFieldStyle = InputDecoration(
+  final InputDecoration _textFieldStyle = const InputDecoration(
     border: OutlineInputBorder(),
   );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("พื้นที่สีเหลี่ยม"), centerTitle: true),
-      body: Column(
-        children: [
-          SizedBox(height: 20),
-          Text(
-            "กว้าง $_area ม .ยาว $_length ม.พื้นที่คือ $_area2 ตร.ม",
-            style: TextStyle(fontSize: 22),
+      appBar: AppBar(
+        title: const Text("ปริมาตรทรงกระบอก"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
-          SizedBox(height: 30),
-          TextField(
-            controller: _areaCtrl,
-            keyboardType: TextInputType.number,
-            decoration: _textFieldStyle.copyWith(
-              label: Text("คำนวณความกว้าง"),
-              hint: Text("กรอกความกว้าง"),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "ปริมาตร = $_volume ลบ.ม.",
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                TextField(
+                  controller: _radiusCtrl,
+                  keyboardType: TextInputType.number,
+                  decoration: _textFieldStyle.copyWith(
+                    labelText: "รัศมี (ม.)",
+                  ),
+                ),
+                const SizedBox(height: 16),
+
+                TextField(
+                  controller: _heightCtrl,
+                  keyboardType: TextInputType.number,
+                  decoration: _textFieldStyle.copyWith(
+                    labelText: "ความสูง (ม.)",
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _calVolume,
+                    child: const Text("คำนวณปริมาตร"),
+                  ),
+                ),
+              ],
             ),
           ),
-          SizedBox(height: 20),
-          TextField(
-            controller: _lengthCtrl,
-            keyboardType: TextInputType.number,
-            decoration: _textFieldStyle.copyWith(
-              label: Text("คำนวณความกว้าง"),
-              hint: Text("กรอกความกว้าง"),
-            ),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(onPressed: () => {_CalReg()}, child: Text("คำนวณ")),
-        ],
+        ),
       ),
     );
   }
+
 }
