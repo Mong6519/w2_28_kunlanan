@@ -30,15 +30,17 @@ class VolumeState extends State<Volume> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         title: const Text("ปริมาตรทรงกระบอก"),
         centerTitle: true,
+        backgroundColor: Colors.blue.shade600,
       ),
       body: Center(
         child: Card(
-          elevation: 4,
+          elevation: 3,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(14),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -46,10 +48,19 @@ class VolumeState extends State<Volume> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "ปริมาตร = $_volume ลบ.ม.",
+                  "ปริมาตร",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.blue.shade700,
+                  ),
+                ),
+                const SizedBox(height: 6),
+
+                Text(
+                  "${_volume.toStringAsFixed(2)} ลบ.ม.",
                   style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -76,6 +87,9 @@ class VolumeState extends State<Volume> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: _calVolume,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue.shade600,
+                    ),
                     child: const Text("คำนวณปริมาตร"),
                   ),
                 ),
@@ -86,5 +100,4 @@ class VolumeState extends State<Volume> {
       ),
     );
   }
-
 }
