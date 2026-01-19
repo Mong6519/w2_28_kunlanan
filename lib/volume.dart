@@ -32,8 +32,9 @@ class VolumeState extends State<Volume> {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        title: const Text("ปริมาตรทรงกระบอก"),
+        title:  Text("ปริมาตรทรงกระบอก"),
         centerTitle: true,
+        leading:  Icon(Icons.calculate),
         backgroundColor: Colors.blue.shade600,
       ),
       body: Center(
